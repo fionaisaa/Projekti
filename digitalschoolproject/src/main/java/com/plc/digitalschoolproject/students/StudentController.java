@@ -1,5 +1,7 @@
 package com.plc.digitalschoolproject.students;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,9 +34,9 @@ public class StudentController {
 
     // e merr nje list
     @GetMapping(path = "/students")
-    public String getStudentName(){
+    public List<StudentEntity> findAllStudents(){
 
-        return "fiona isa";
+        return studentService.findAllStudents();
     }
 
     @PostMapping(path = "/students")

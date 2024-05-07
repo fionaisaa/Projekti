@@ -1,5 +1,7 @@
 package com.plc.digitalschoolproject.students;
 
+import java.util.Set;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -32,5 +34,18 @@ public class StudentServiceImpl implements StudentService {
        
       return studentRepository.save(studentEntity);
     }
+
+    @Override
+    public Set<StudentEntity> findByNameOrEmail(String name, String email) {
+     
+      Set<StudentEntity> studentEntities = studentRepository.findByFirstNameOrEmailIgnoreCase(name, email);
+       if(studentEntities.isEmpty()){
+          throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Student with name " +name+ " is not found.");
+     }
+
+       return studentEntities;
+    }
+
+    
 
 }

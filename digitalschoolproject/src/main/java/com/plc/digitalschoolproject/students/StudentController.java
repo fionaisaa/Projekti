@@ -1,6 +1,10 @@
 package com.plc.digitalschoolproject.students;
 
+
+import org.springframework.data.domain.Pageable;
+
 import java.util.Set;
+
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -41,9 +45,9 @@ public class StudentController {
 
     // e merr nje list
     @GetMapping(path = "/students")
-    public String getStudentName(){
+    public Page<StudentEntity> findAllStudents(Pageable pageable){
 
-        return "fiona isa";
+        return studentService.findAllStudents(pageable);
     }
 
     @PostMapping(path = "/students")
@@ -54,8 +58,10 @@ public class StudentController {
         return studentService.save(studentEntity);
     }
 
-    @DeleteMapping(path = "/students")
-    public void deleteAllStudents(){
+    @DeleteMapping(path = "/students/{id}")
+    public void deleteAllStudents(@PathVariable(name = "id") Long id){
+
+        studentService.delete(id);
 
     }
 

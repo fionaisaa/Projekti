@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.plc.digitalschoolproject.students.commons.StudentMapper;
+
 @Service
 public class StudentServiceImpl implements StudentService {
 
@@ -72,6 +74,22 @@ public class StudentServiceImpl implements StudentService {
             () -> new ResponseStatusException( HttpStatus.NOT_FOUND, "Student with id " +id+ " is not found."));
 
       return studentRepository.save(studentEntity);
+    }
+
+    @Override
+    public StudentDto patch(Long id, StudentDto studentDto) {
+
+      //before update
+      StudentEntity studentEntity = this.findById(id);
+
+     //after mapping
+     StudentMapper.mapDtoToEntity(studentDto, studentEntity);
+
+     StudentEntity patched = studentRepository.save(studentEntity);
+
+      //masi qe u bo mapping edhe u bo save ne db
+      return StudentMapper.mapEntityToDto(patched);
+
     }
 
     

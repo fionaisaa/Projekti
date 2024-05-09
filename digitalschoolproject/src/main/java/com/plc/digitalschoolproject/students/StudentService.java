@@ -17,4 +17,5 @@ public interface StudentService {
     Set<StudentEntity> findByNameOrEmail(String name, String email);
     void delete(Long id);
     StudentEntity update(Long id, StudentEntity studentEntity);
+    StudentDto  patch(Long id, StudentDto studentDto);
 }

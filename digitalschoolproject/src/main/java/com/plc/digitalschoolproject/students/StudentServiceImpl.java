@@ -1,7 +1,7 @@
 package com.plc.digitalschoolproject.students;
 
-import java.util.List;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -36,9 +36,16 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<StudentEntity> findAllStudents() {
+    public Page<StudentEntity> findAllStudents(Pageable pageable) {
     
-      return studentRepository.findAll();
+      return studentRepository.findAll(pageable);
     }
 
+    @Override
+    public void delete(Long id) {
+
+     studentRepository.deleteById(id);
+    }
+
+   
 }

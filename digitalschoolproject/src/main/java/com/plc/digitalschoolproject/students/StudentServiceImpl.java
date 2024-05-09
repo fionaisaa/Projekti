@@ -1,7 +1,12 @@
 package com.plc.digitalschoolproject.students;
 
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+
+import java.util.Set;
+
+
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -36,6 +41,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+
     public Page<StudentEntity> findAllStudents(Pageable pageable) {
     
       return studentRepository.findAll(pageable);
@@ -48,4 +54,17 @@ public class StudentServiceImpl implements StudentService {
     }
 
    
+
+    public Set<StudentEntity> findByNameOrEmail(String name, String email) {
+     
+      Set<StudentEntity> studentEntities = studentRepository.findByFirstNameOrEmailIgnoreCase(name, email);
+       if(studentEntities.isEmpty()){
+          throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Student with name " +name+ " is not found.");
+     }
+
+       return studentEntities;
+    }
+
+    
+
 }

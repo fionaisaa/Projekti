@@ -13,10 +13,8 @@ public interface StudentService {
 
     StudentEntity findById(Long id);
     StudentEntity save(StudentEntity studentEntity);
-
     Page<StudentEntity> findAllStudents(Pageable pageable);
-    void delete(Long id);
-
     Set<StudentEntity> findByNameOrEmail(String name, String email);
-
+    void delete(Long id);
+    StudentEntity update(Long id, StudentEntity studentEntity);
 }

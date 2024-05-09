@@ -1,19 +1,18 @@
 package com.plc.digitalschoolproject.students;
 
+
+
+import com.plc.digitalschoolproject.commons.BaseEntity;
+
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "Students")
-public class StudentEntity {
+public class StudentEntity extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy =GenerationType.IDENTITY )
-    private Long id;
-
+   
     private String firstName;
     private String lastName;
     private String profilePicture;
@@ -21,14 +20,6 @@ public class StudentEntity {
     private String email;
     private String phoneNumber;
 
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getFirstName() {
         return firstName;

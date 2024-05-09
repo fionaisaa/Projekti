@@ -65,6 +65,15 @@ public class StudentServiceImpl implements StudentService {
        return studentEntities;
     }
 
+    @Override
+    public StudentEntity update(Long id, StudentEntity studentEntity) {
+      
+      studentRepository.findById(id).orElseThrow(
+            () -> new ResponseStatusException( HttpStatus.NOT_FOUND, "Student with id " +id+ " is not found."));
+
+      return studentRepository.save(studentEntity);
+    }
+
     
 
 }

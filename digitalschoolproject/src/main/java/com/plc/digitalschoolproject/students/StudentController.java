@@ -1,6 +1,7 @@
 package com.plc.digitalschoolproject.students;
 
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.Set;
@@ -11,10 +12,12 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 
 
@@ -51,7 +54,6 @@ public class StudentController {
     }
 
     @PostMapping(path = "/students")
-
     @ResponseStatus(HttpStatus.CREATED)
     public StudentEntity createStudent(@RequestBody StudentEntity studentEntity){
 
@@ -59,10 +61,25 @@ public class StudentController {
     }
 
     @DeleteMapping(path = "/students/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteAllStudents(@PathVariable(name = "id") Long id){
 
         studentService.delete(id);
 
+    }
+
+    @PutMapping(path = "/students/{id}")
+    public StudentEntity updateStudent(@PathVariable(name= "id") Long id, @RequestBody StudentEntity studentEntity){
+
+        if(id==null || studentEntity == null){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+
+        if(!id.equals(studentEntity.getId())){
+
+        }
+        
+        return studentService.update(id, studentEntity);
     }
 
     }

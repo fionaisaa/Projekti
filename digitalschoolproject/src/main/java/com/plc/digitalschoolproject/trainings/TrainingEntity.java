@@ -1,8 +1,16 @@
 package com.plc.digitalschoolproject.trainings;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.plc.digitalschoolproject.commons.BaseEntity;
+import com.plc.digitalschoolproject.trainings.subjects.SubjectEntity;
 
+import java.util.Set;
+import java.util.HashSet;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -13,6 +21,11 @@ public class TrainingEntity extends BaseEntity {
     private String title;
     private String description;
     private String cover;
+    private Double price;
+
+    @OneToMany(mappedBy = "training" , cascade = CascadeType.ALL , orphanRemoval = true, fetch = FetchType.LAZY)
+    @JsonIgnoreProperties("training")
+    private Set<SubjectEntity> subjects = new HashSet<>();
 
 
 
@@ -39,6 +52,24 @@ public class TrainingEntity extends BaseEntity {
     public void setCover(String cover) {
         this.cover = cover;
     }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public Set<SubjectEntity> getSubjects() {
+        return subjects;
+    }
+
+    public void setSubjects(Set<SubjectEntity> subjects) {
+        this.subjects = subjects;
+    }
+    
+    
 
     
 

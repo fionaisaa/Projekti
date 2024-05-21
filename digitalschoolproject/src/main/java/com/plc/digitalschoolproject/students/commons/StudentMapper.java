@@ -34,7 +34,7 @@ public class StudentMapper {
 
 
     }
-    
+
     public static StudentDto mapEntityToDto(StudentEntity source){
         StudentDto studentDto = new StudentDto();
 

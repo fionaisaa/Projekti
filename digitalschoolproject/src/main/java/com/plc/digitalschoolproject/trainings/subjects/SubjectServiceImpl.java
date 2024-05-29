@@ -56,15 +56,15 @@ public class SubjectServiceImpl implements SubjectService{
 
     @Override
     public SubjectDto update(Long subjectId, SubjectDto subject) {
-        
+
         SubjectEntity subjectEntity = subjectRepository.findById(subjectId).orElseThrow(
-            () -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Subject with id " +subjectId+ " is not found.")
+            () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Subject with id " + subjectId + " is not found.")
         );
 
-        SubjectEntity merged= subjectMapper.mapDtoToEntity(subject);
+        SubjectEntity merged = subjectMapper.mapDtoToEntity(subject);
         SubjectEntity updated = subjectRepository.save(merged);
-
         return subjectMapper.mapEntityToDto(updated);
+        
     }
 
 

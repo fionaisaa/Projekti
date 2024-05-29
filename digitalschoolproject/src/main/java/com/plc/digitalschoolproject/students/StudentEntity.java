@@ -2,10 +2,17 @@ package com.plc.digitalschoolproject.students;
 
 
 
+import java.util.HashSet;
+import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.plc.digitalschoolproject.commons.BaseEntity;
+import com.plc.digitalschoolproject.groups.GroupEntity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
-
+import jakarta.persistence.FetchType;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -19,6 +26,10 @@ public class StudentEntity extends BaseEntity {
     private String address;
     private String email;
     private String phoneNumber;
+
+    @ManyToMany(mappedBy = "students", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnore
+    private Set<GroupEntity> groups = new HashSet<>();
 
 
     public String getFirstName() {
@@ -69,6 +80,11 @@ public class StudentEntity extends BaseEntity {
         this.phoneNumber = phoneNumber;
     }
 
+    public Set<GroupEntity> getGroups() {
+        return groups;
+    }
 
-
+    public void setGroups(Set<GroupEntity> groups) {
+        this.groups = groups;
+    }
 }
